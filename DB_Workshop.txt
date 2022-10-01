@@ -1,0 +1,29 @@
+Drop table if exists tipo_usuario; -- Excluir se já existir
+
+Create table tipo_usuario(
+	ID_Tipo_Usuario Int Primary Key AUTO_INCREMENT Not null,
+	Descricao Varchar(50) Not null,
+	Nivel Int Not null) Engine = INNODB;
+
+Insert into tipo_usuario (Descricao,  Nivel) -- Iniciar tabela como Dev
+	Values ('Desenvolvedor', 1);
+    
+-- 1 - Desenvolvedor
+-- 2 - Administrador
+-- 3 - Usuário
+
+-_------------------------------------
+
+Drop table if exists usuario; -- Excluir se já existir
+
+Create table usuario(
+	ID_Usuario Int Primary Key AUTO_INCREMENT Not null,
+	Nome Varchar(200) Not null,
+	Login Varchar(250) Not null Unique,
+	Email Varchar(250) Not null Unique,
+	Senha Char(255) Not null,
+	Tipo_Usuario Int Not null,
+	
+    Constraint Fk_Usuario_Tipo -- Chave estrangeira Tipo_Usuario
+	Foreign key (Tipo_Usuario)
+	References Tipo_Usuario(ID_Tipo_Usuario)) Engine = INNODB;
